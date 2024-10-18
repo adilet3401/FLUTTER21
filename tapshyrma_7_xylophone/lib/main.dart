@@ -1,52 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:tapshyrma_7_xylophone/widgets/piano_keyboard.dart';
+import 'package:tapshyrma_7_xylophone/xylophone_page.dart';
 
 void main() {
-  runApp(const Xylophone());
+  runApp(const MyApp());
 }
 
-class Xylophone extends StatelessWidget {
-  const Xylophone({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: myAppBar(),
-      body: Column(
-        children: [
-          const PianoKeyboard(colors: Color(0xffef443a), soundName: 'note1'),
-          const PianoKeyboard(colors: Color(0xffF99700), soundName: 'note2'),
-          const PianoKeyboard(colors: Color(0xffFFE93B), soundName: 'note3'),
-          const PianoKeyboard(colors: Color(0xff4CB050), soundName: 'note4'),
-          const PianoKeyboard(colors: Color(0xff2E968C), soundName: 'note5'),
-          const PianoKeyboard(colors: Color(0xff2996F5), soundName: 'note6'),
-          const PianoKeyboard(colors: Color(0xff9B28B1), soundName: 'note7'),
-          Expanded(
-            child: Container(
-              width: double.infinity,
-              height: 70,
-              decoration: const BoxDecoration(
-                color: Color(0xff363636),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  AppBar myAppBar() {
-    return AppBar(
-      centerTitle: true,
-      title: const Text(
-        'Flutter Xylophone',
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w500,
-          fontSize: 24,
-        ),
-      ),
-      backgroundColor: const Color(0xff363636),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Xylophone App',
+      home: Xylophone(),
     );
   }
 }
