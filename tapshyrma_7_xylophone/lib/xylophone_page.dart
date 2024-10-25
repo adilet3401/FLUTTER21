@@ -36,33 +36,57 @@ class _XylophoneState extends State<Xylophone> {
             colors: const Color(0xffEF443A),
             onTap: () async {
               await audio.play(
-                AssetSource('do.wav'),
+                AssetSource('do.mp3'),
               );
             },
           ),
           PianoKeyboard(
             colors: const Color(0xffF99700),
-            onTap: () {},
+            onTap: () async {
+              await audio.play(
+                AssetSource('re.mp3'),
+              );
+            },
           ),
           PianoKeyboard(
             colors: const Color(0xffFFE93B),
-            onTap: () {},
+            onTap: () async {
+              await audio.play(
+                AssetSource('mi.mp3'),
+              );
+            },
           ),
           PianoKeyboard(
             colors: const Color(0xff4CB050),
-            onTap: () {},
+            onTap: () async {
+              await audio.play(
+                AssetSource('fa.mp3'),
+              );
+            },
           ),
           PianoKeyboard(
             colors: const Color(0xff2E968C),
-            onTap: () {},
+            onTap: () async {
+              await audio.play(
+                AssetSource('so.mp3'),
+              );
+            },
           ),
           PianoKeyboard(
             colors: const Color(0xff2996F5),
-            onTap: () {},
+            onTap: () async {
+              await audio.play(
+                AssetSource('la.mp3'),
+              );
+            },
           ),
           PianoKeyboard(
             colors: const Color(0xff9B28B1),
-            onTap: () {},
+            onTap: () async {
+              await audio.play(
+                AssetSource('si.mp3'),
+              );
+            },
           ),
           // Expanded(
           // child: Container(
@@ -76,32 +100,50 @@ class _XylophoneState extends State<Xylophone> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xff363636),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
+        selectedLabelStyle: const TextStyle(
+          fontSize: 13.5,
+          fontWeight: FontWeight.w400,
+        ),
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 13.5,
+          fontWeight: FontWeight.w400,
+        ),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             backgroundColor: Color(0xff363636),
             icon: Icon(
               Icons.home,
+              color: Colors.white,
             ),
             label: 'home',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color(0xff363636),
             icon: Icon(
               Icons.settings,
+              color: Colors.white,
             ),
             label: 'settings',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color(0xff363636),
             icon: Icon(
               Icons.search_rounded,
+              color: Colors.white,
             ),
-            label: 'home',
+            label: 'search',
           ),
           BottomNavigationBarItem(
+            backgroundColor: Color(0xff363636),
             icon: Icon(
               Icons.person,
+              color: Colors.white,
             ),
-            label: 'home',
+            label: 'profile',
           ),
         ],
       ),
