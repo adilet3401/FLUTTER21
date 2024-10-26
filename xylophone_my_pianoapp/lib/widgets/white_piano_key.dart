@@ -3,30 +3,38 @@ import 'package:flutter/material.dart';
 class WhitePianoKey extends StatelessWidget {
   const WhitePianoKey({
     super.key,
+    required this.label,
+    this.onTap,
   });
+
+  final String label;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(5),
-              topRight: Radius.circular(5),
-            ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(5),
+            topRight: Radius.circular(5),
           ),
-          minimumSize: Size(54, 217)),
-      onPressed: () {},
-      child: const Center(
+        ),
+        minimumSize: Size(54, 217),
+      ),
+      onPressed: onTap,
+      child: Container(
+        height: 217,
         child: Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-            padding: EdgeInsets.only(bottom: 13),
+            padding: const EdgeInsets.only(bottom: 18),
             child: Text(
-              'f1',
+              label,
               style: TextStyle(
                 fontSize: 19.6,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
               ),
             ),
           ),
@@ -35,6 +43,7 @@ class WhitePianoKey extends StatelessWidget {
     );
   }
 }
+
 /*
  Container(
       width: 54.91,
