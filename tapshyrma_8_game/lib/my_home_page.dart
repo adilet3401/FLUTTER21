@@ -32,11 +32,8 @@ class _MyHomePageState extends State<MyHomePage> {
       print('туура эмес${tuuraEmes.toInt()}');
     }
     if (questionNumber >= quizeList.length) {
-      questionNumber = 4;
+      questionNumber = quizeList.length - 1;
       showTestDialog(context);
-      // questionNumber = 0;
-      // tuuraJoop = 0;
-      // tuuraEmes = 0;
     }
     setState(() {});
   }
@@ -56,6 +53,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           actions: [
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(50, 35),
+                  backgroundColor: Colors.green,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  )),
               onPressed: () {
                 tuuraJoop = 0;
                 tuuraEmes = 0;
@@ -66,8 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text(
                 'да',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
+                  color: Colors.white,
+                  fontSize: 17,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -92,19 +95,20 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const SizedBox(height: 190),
             CustomButton(
-              text: 'Туура',
               color: Colors.green,
               onPressed: () {
                 questionAnswer();
               },
+              icon: Icons.done,
             ),
             const SizedBox(height: 30),
             CustomButton(
-                color: Colors.red,
-                text: 'Туура эмес',
-                onPressed: () {
-                  questionAnswer();
-                }),
+              color: Colors.red,
+              onPressed: () {
+                questionAnswer();
+              },
+              icon: Icons.close,
+            ),
           ],
         ),
       ),

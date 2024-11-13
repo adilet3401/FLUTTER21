@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton(
-      {super.key, required this.text, required this.color, this.onPressed});
+  const CustomButton({
+    super.key,
+    required this.color,
+    this.onPressed,
+    required this.icon,
+  });
 
-  final String text;
+  // final String text;
+  // final String icon;
+  final IconData icon;
   final Color color;
   final void Function()? onPressed;
 
@@ -19,13 +25,11 @@ class CustomButton extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 25,
-          fontWeight: FontWeight.w500,
-        ),
+      child: Icon(
+        icon,
+        color: Colors.white,
+        size: 40,
+        weight: 50,
       ),
     );
   }
