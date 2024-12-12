@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
-// import 'package:project_one/widgets/large_container.dart';
-// import 'package:project_one/widgets/male_female_container.dart';
-import 'package:sabak_9_bmi_calculator/widgets/large_container.dart';
+// import 'package:sabak_9_bmi_calculator/methods/alert_dialog.dart';
+import 'package:sabak_9_bmi_calculator/widgets/calculator.dart';
+import 'package:sabak_9_bmi_calculator/widgets/height_container.dart';
 import 'package:sabak_9_bmi_calculator/widgets/male_female_container.dart';
 import 'package:sabak_9_bmi_calculator/widgets/weight_age_container.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  bool isMale = false;
+  int height = 110;
+  int weight = 35;
+  int age = 9;
+  void maleFun() {
+    setState(() {
+      isMale = !isMale;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff221935),
       appBar: myAppbar(),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -21,37 +36,71 @@ class MyHomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 MaleFemaleContainer(
+                  onTap: () => maleFun(),
                   icon: Icons.male,
                   text: 'MALE',
+                  iconColor: isMale
+                      ? const Color(0xff686D76)
+                      : const Color(0xff019ee3),
+                  iconSize: isMale ? 68 : 88,
+                  textColor: isMale
+                      ? const Color(0xff686d76)
+                      : const Color(0xff019ee3),
                 ),
-                SizedBox(width: 35),
+                const SizedBox(width: 35),
                 MaleFemaleContainer(
+                  onTap: () => maleFun(),
                   icon: Icons.female,
                   text: 'FEMALE',
+                  iconColor: isMale
+                      ? const Color(0xffe3027c)
+                      : const Color(0xff686D76),
+                  iconSize: isMale ? 88 : 68,
+                  textColor: isMale
+                      ? const Color(0xffe3027c)
+                      : const Color(0xff686d76),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 18,
             ),
             LargeWidget(
-              textSm: '100 sm',
               text: 'HEIGHT',
+              cm: 'cm',
+              san: height,
+              widget: Slider.adaptive(
+                thumbColor: const Color(0xffff0f65),
+                activeColor: Colors.white,
+                inactiveColor: Colors.grey,
+                max: 260,
+                min: 0,
+                value: height.toDouble(),
+                onChanged: (v) {
+                  height = v.toInt();
+                  setState(() {});
+                  print(height);
+                },
+              ),
             ),
-            SizedBox(height: 18),
+            const SizedBox(height: 18),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 WeightAgeContainer(
-                  text: 'wight',
-                  san: 60,
+                  weight1: () => setState(() => weight--),
+                  text: 'weight',
+                  san: weight,
                   iconAdd: Icons.add,
+                  weight2: () => setState(() => weight++),
                   iconRemove: Icons.remove,
                 ),
-                SizedBox(width: 25),
+                const SizedBox(width: 25),
                 WeightAgeContainer(
+                  weight1: () => setState(() => age--),
+                  weight2: () => setState(() => age++),
                   text: 'age',
-                  san: 20,
+                  san: age,
                   iconAdd: Icons.add,
                   iconRemove: Icons.remove,
                 ),
@@ -60,20 +109,7 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 73,
-        width: 370,
-        color: const Color(0xffFF0F65),
-        child: const Center(
-            child: Text(
-          'CALCULATOR',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
-            fontSize: 22,
-          ),
-        )),
-      ),
+      bottomNavigationBar: Calculator(weight: weight, height: height),
     );
   }
 

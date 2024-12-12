@@ -7,12 +7,16 @@ class WeightAgeContainer extends StatelessWidget {
     required this.san,
     required this.iconAdd,
     required this.iconRemove,
+    this.weight1,
+    this.weight2,
   });
 
   final String text;
   final int san;
   final IconData iconAdd;
   final IconData iconRemove;
+  final void Function()? weight1;
+  final void Function()? weight2;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class WeightAgeContainer extends StatelessWidget {
             Text(
               text.toUpperCase(),
               style: const TextStyle(
-                color: Colors.white,
+                color: Color(0xffceccd2),
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),
@@ -38,7 +42,7 @@ class WeightAgeContainer extends StatelessWidget {
             Text(
               san.toString(),
               style: const TextStyle(
-                color: Colors.white,
+                color: Color(0xffceccd2),
                 fontSize: 40,
                 fontWeight: FontWeight.w800,
               ),
@@ -54,7 +58,7 @@ class WeightAgeContainer extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: weight1,
                 ),
                 IconButton(
                   icon: CircleAvatar(
@@ -64,7 +68,7 @@ class WeightAgeContainer extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: weight2,
                 ),
               ],
             ),
