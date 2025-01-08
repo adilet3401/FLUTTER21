@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sabak_11_flutter_news/constants/app_colors/app_bar_bgc.dart';
-import 'package:sabak_11_flutter_news/features/data/oop.dart';
 import 'package:sabak_11_flutter_news/features/data/service.dart';
+import 'package:sabak_11_flutter_news/features/model/news_model.dart';
 import 'package:sabak_11_flutter_news/methods/my_appbar.dart';
 import 'package:sabak_11_flutter_news/widgets/news_card.dart';
 import 'package:sabak_11_flutter_news/widgets/search_widget.dart';
@@ -15,27 +15,35 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    NewsService().fetchData();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: scaffoldColor,
         appBar: myAppBar(),
-        body: ListView.builder(
-          itemCount: newsList.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: NewsCard(index: index, newsList: newsList),
-            );
-          },
-        ),
+        body: FutureBuilder<NewsModel?>(
+            future: NewsService().fetchData(),
+            builder:
+                (BuildContext context, AsyncSnapshot<NewsModel?> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                    child: CircularProgressIndicator.adaptive());
+              } else if (snapshot.connectionState == ConnectionState.none) {
+                return const Center(
+                  child: Text('сервер не работает'),
+                );
+              } else if (snapshot.connectionState == ConnectionState.done) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.articles!.length,
+                  itemBuilder: (context, index) {
+                    final data = snapshot.data!.articles;
+                    return NewsCard(index: index, data: data);
+                  },
+                );
+              }
+              return const Center(
+                child: Text('ERROR 404'),
+              );
+            }),
         floatingActionButton: const SearchWidget(),
       ),
     );

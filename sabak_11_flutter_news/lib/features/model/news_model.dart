@@ -1,23 +1,71 @@
+class NewsModel {
+  String? status;
+  int? totalResults;
+  List<Articles>? articles;
+
+  NewsModel({this.status, this.totalResults, this.articles});
+
+  NewsModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    totalResults = json['totalResults'];
+    if (json['articles'] != null) {
+      articles = <Articles>[];
+      json['articles'].forEach((v) {
+        articles!.add(new Articles.fromJson(v));
+      });
+    }
+  }
+}
+
 class Articles {
+  Source? source;
+  String? author;
+  String? title;
+  String? description;
+  String? url;
+  String? urlToImage;
+  String? publishedAt;
+  String? content;
+
   Articles({
-    required this.author,
-    required this.tittle,
-    required this.description,
-    required this.url,
-    required this.urlToImage,
-    required this.publishedAt,
-    required this.content,
+    this.source,
+    this.author,
+    this.title,
+    this.description,
+    this.url,
+    this.urlToImage,
+    this.publishedAt,
+    this.content,
   });
-  final String? author;
-  final String? tittle;
-  final String? description;
-  final String? url;
-  final String? urlToImage;
-  final String? publishedAt;
-  final String? content;
+
+  Articles.fromJson(Map<String, dynamic> json) {
+    source = json['source'] != null ? Source.fromJson(json['source']) : null;
+
+    author = json['author'];
+    title = json['title'];
+    description = json['description'];
+    url = json['url'];
+    urlToImage = json['urlToImage'];
+    publishedAt = json['pushedAt'];
+    content = json['content'];
+  }
 }
 
 class Source {
-  Source({required this.name});
-  final String? name;
+  String? id;
+  String? name;
+
+  Source({this.id, this.name});
+
+  factory Source.fromJson(Map<String, dynamic> json) {
+    return Source(
+      id: json['id'] as String?,
+      name: json['name'] as String?,
+    );
+  }
+
+  Source.fromjson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
 }

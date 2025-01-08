@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:sabak_11_flutter_news/constants/text_styles/tittle_color.dart';
-// import 'package:sabak_11_flutter_news/features/data/oop.dart';
+import 'package:sabak_11_flutter_news/features/model/news_model.dart';
 
 class NewsCard extends StatelessWidget {
   const NewsCard({
     super.key,
     required this.index,
-    required this.newsList,
+    required this.data,
   });
 
   final int index;
-  final List newsList;
+  final List<Articles>? data;
 
   @override
   Widget build(BuildContext context) {
+    final news = data?[index];
     return Card(
       color: Colors.grey[300],
-      margin: const EdgeInsets.symmetric(vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          Image.asset(
-            newsList[index].image,
-            fit: BoxFit.cover,
+          SizedBox(
+            width: 130,
+            height: 135,
+            child: Image.network(
+              news?.urlToImage ?? "",
+              fit: BoxFit.cover,
+            ),
           ),
           Expanded(
             child: Padding(
@@ -30,11 +35,11 @@ class NewsCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    newsList[index].date,
+                    news?.title ?? "bez title",
                     style: dataStyle,
                   ),
                   Text(
-                    newsList[index].text,
+                    news?.description ?? "bez description",
                     style: newsTextStyle,
                   ),
                 ],
