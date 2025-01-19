@@ -1,5 +1,3 @@
-// import 'package:flutter/material.dart';
-
 class News {
   const News({required this.image, required this.date, required this.text});
   final String image;
