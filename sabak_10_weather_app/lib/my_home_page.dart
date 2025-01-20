@@ -2,7 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sabak_10_weather_app/constants.dart/app_text_styles.dart';
+import 'package:sabak_10_weather_app/constants.dart/liner_gradient.dart';
+import 'package:sabak_10_weather_app/widgets/weather_days.widget.dart';
 import 'package:sabak_10_weather_app/widgets/weather_view.dart';
+
+import 'widgets/slider_view.dart';
 
 class WeatherApp extends StatefulWidget {
   const WeatherApp({super.key});
@@ -14,6 +18,10 @@ class WeatherApp extends StatefulWidget {
 class _WeatherAppState extends State<WeatherApp> {
   String weatherInfo = "...";
   String cityName = "...";
+  String countryN = "...";
+  String weatherIcon = "...";
+  String weatherText = "...";
+  double weatherWind = 0;
 
   void weatherFun() async {
     final url = Uri.parse(
@@ -22,12 +30,20 @@ class _WeatherAppState extends State<WeatherApp> {
     if (response.statusCode == 200) {
       print(response.body);
       final data = jsonDecode(response.body);
-      final temp = data["main"]["temp"];
-      final name = data["name"];
+      final temp = data["main"]["temp"] ?? 0.0;
+      final name = data["name"] ?? "Неопознанный город.";
+      final countryName = data['sys']['country'] ?? "Неопознанная страна.";
+      final icon = data["weather"][0]["icon"] ?? ",,,";
+      final main = data["weather"][0]["main"] ?? "неопознанно.";
+      final wind = (data["wind"]["speed"] ?? 0.0).toDouble();
       final withKelvin = temp - 273.15;
       setState(() {
         weatherInfo = withKelvin.toStringAsFixed(0);
         cityName = name;
+        countryN = countryName;
+        weatherIcon = icon;
+        weatherText = main;
+        weatherWind = wind;
       });
     } else {
       print(response.statusCode);
@@ -44,145 +60,106 @@ class _WeatherAppState extends State<WeatherApp> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                Color(0xff5cd6f0),
-                Color.fromARGB(255, 134, 232, 254),
-              ],
+        backgroundColor: const Color(0xff66d8f1),
+        body: SingleChildScrollView(
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinerGradientColor.liner,
+            ),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 31.5, vertical: 18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset('assets/images/icon2.png', scale: 13),
+                      Image.asset('assets/images/icon3.png', scale: 13),
+                    ],
+                  ),
+                  Text(
+                    '$cityName,\n$countryN',
+                    style: AppTextStyles.locationStyle,
+                  ),
+                  const Text(
+                    'Tue, Jan 30',
+                    style: AppTextStyles.dataStyle,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Image.network(
+                          weatherIcon.isNotEmpty
+                              ? 'https://openweathermap.org/img/wn/$weatherIcon@4x.png'
+                              : 'assets/images/cludy.png',
+                          width: 250,
+                          height: 250,
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                weatherInfo,
+                                style: AppTextStyles.tempStyle,
+                              ),
+                              const Text(
+                                '\u2103',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            weatherText,
+                            style: AppTextStyles.weatherStyle,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const WeatherBanner(
+                    info: '3cm',
+                    name: 'RainFall',
+                    image: 'assets/images/rainy.png',
+                  ),
+                  WeatherBanner(
+                    info: '${weatherWind.toString()} km/h',
+                    name: 'Wind ',
+                    image: 'assets/images/wind.png',
+                  ),
+                  const WeatherBanner(
+                    info: '64%',
+                    name: 'Humidity',
+                    image: 'assets/images/hu.png',
+                  ),
+                  const SliderView(),
+                ],
+              ),
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 31.5, vertical: 18),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset('assets/images/icon2.png', scale: 13),
-                    Image.asset('assets/images/icon3.png', scale: 13),
-                  ],
-                ),
-                Text(
-                  '$cityName,\nKyrgyzstan',
-                  style: AppTextStyles.locationStyle,
-                ),
-                const Text(
-                  'Tue, Jan 30',
-                  style: AppTextStyles.dataStyle,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.asset(
-                      'assets/images/cludy.png',
-                      width: 225,
-                      height: 240,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "$weatherInfo",
-                              style: AppTextStyles.tempStyle,
-                            ),
-                            const Text(
-                              '\u2103',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ],
-                        ),
-                        const Text(
-                          'Snow',
-                          style: AppTextStyles.weatherStyle,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const WeatherBanner(
-                  info: '3cm',
-                  name: 'RainFall',
-                  image: 'assets/images/rainy.png',
-                ),
-                const WeatherBanner(
-                  info: '19km/h',
-                  name: 'Wind ',
-                  image: 'assets/images/wind.png',
-                ),
-                const WeatherBanner(
-                  info: '64%',
-                  name: 'Humidity',
-                  image: 'assets/images/hu.png',
-                ),
-                const SizedBox(height: 40),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      'Today',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 13.8,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    Text(
-                      'Tomorrow',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 13.8,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(width: 19.7),
-                    Text(
-                      'Next 7 days',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 13.8,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 12,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 5),
-                SliderTheme(
-                  data: SliderTheme.of(context).copyWith(
-                    trackHeight: 0.10,
-                    thumbShape: const RoundSliderThumbShape(
-                      enabledThumbRadius: 4,
-                      pressedElevation: 5,
-                    ),
-                    overlayShape:
-                        const RoundSliderOverlayShape(overlayRadius: 14),
-                  ),
-                  child: Slider(
-                    activeColor: Colors.black,
-                    inactiveColor: Colors.white,
-                    value: 100,
-                    max: 100,
-                    divisions: 5,
-                    label: "Hello",
-                    onChanged: (double value) {
-                      setState(() {});
-                    },
-                  ),
-                ),
-              ],
+        ),
+        bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            gradient: LinerGradientColor.liner,
+          ),
+          child: SizedBox(
+            height: 98.99,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return const WeatherDaysCard(
+                  text1: 'now',
+                  text2: '19°',
+                  image: 'assets/images/icon (6).png',
+                );
+              },
+              itemCount: 10,
             ),
           ),
         ),
