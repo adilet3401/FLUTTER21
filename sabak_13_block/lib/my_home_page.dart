@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sabak_13_block/bloc/news_bloc.dart';
 import 'package:sabak_13_block/model.dart';
 import 'package:sabak_13_block/service.dart';
 
@@ -25,7 +27,44 @@ class _MyHomePageState extends State<MyHomePage> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: FutureBuilder<News?>(
+      body: BlocBuilder<NewsBloc, NewsState>(builder: (context, state) {
+        if (state is LoadingState) {
+          return Text('circular progress indicator');
+        } else if (state is ErrorState) {
+          return Text(state.errorText);
+        } else if (state is LoadedState) {
+          return ListView.builder(
+            itemCount: state.news.articles?.length,
+            itemBuilder: (context, index) {
+              final news = state.news.articles?[index];
+              return Card(
+                child: Column(
+                  children: [
+                    Text(
+                      news?.author ?? "",
+                      style: const TextStyle(fontSize: 7),
+                    ),
+                    Text(
+                      news?.title ?? "",
+                      style: const TextStyle(fontSize: 10),
+                    ),
+                    Text(
+                      news?.description ?? "",
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    Text(
+                      news?.publishedAt ?? "",
+                      style: const TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        }
+      }),
+      /*
+      FutureBuilder<News?>(
         future: ServiceData().fetchData(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -67,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         },
       ),
+      */
     );
   }
 }

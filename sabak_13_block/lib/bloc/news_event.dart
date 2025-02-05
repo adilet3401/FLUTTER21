@@ -7,8 +7,4 @@ sealed class NewsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchNews extends NewsEvent {
-  const FetchNews({required this.news});
-
-  final News news;
-}
+class FetchNews extends NewsEvent {}
