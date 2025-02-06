@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sabak_13_block/bloc/news_bloc.dart';
-import 'package:sabak_13_block/model.dart';
 import 'package:sabak_13_block/service.dart';
+import 'package:sabak_13_block/widgets/news_card.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -13,100 +13,35 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
-  void initState() {
-    super.initState();
-    ServiceData().fetchData();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: const Text(
           'News App',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: BlocBuilder<NewsBloc, NewsState>(builder: (context, state) {
-        if (state is LoadingState) {
-          return Text('circular progress indicator');
-        } else if (state is ErrorState) {
-          return Text(state.errorText);
-        } else if (state is LoadedState) {
-          return ListView.builder(
-            itemCount: state.news.articles?.length,
-            itemBuilder: (context, index) {
-              final news = state.news.articles?[index];
-              return Card(
-                child: Column(
-                  children: [
-                    Text(
-                      news?.author ?? "",
-                      style: const TextStyle(fontSize: 7),
-                    ),
-                    Text(
-                      news?.title ?? "",
-                      style: const TextStyle(fontSize: 10),
-                    ),
-                    Text(
-                      news?.description ?? "",
-                      style: const TextStyle(fontSize: 15),
-                    ),
-                    Text(
-                      news?.publishedAt ?? "",
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        }
-      }),
-      /*
-      FutureBuilder<News?>(
-        future: ServiceData().fetchData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('download...');
-          } else if (snapshot.connectionState == ConnectionState.none) {
-            return const Center(child: Text('ERROR'));
-          } else if (snapshot.connectionState == ConnectionState.done) {
-            //listview
+      body: BlocBuilder<NewsBloc, NewsState>(
+        builder: (context, state) {
+          if (state is LoadingState) {
+            return const Center(child: Text('circular progress indicator'));
+          } else if (state is ErrorState) {
+            return Text(state.errorText);
+          } else if (state is LoadedState) {
             return ListView.builder(
-              itemCount: snapshot.data?.articles?.length,
+              itemCount: state.news.articles?.length,
               itemBuilder: (context, index) {
-                final news = snapshot.data?.articles?[index];
-                return Card(
-                  child: Column(
-                    children: [
-                      Text(
-                        news?.author ?? "",
-                        style: const TextStyle(fontSize: 7),
-                      ),
-                      Text(
-                        news?.title ?? "",
-                        style: const TextStyle(fontSize: 10),
-                      ),
-                      Text(
-                        news?.description ?? "",
-                        style: const TextStyle(fontSize: 15),
-                      ),
-                      Text(
-                        news?.publishedAt ?? "",
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                );
+                final news = state.news.articles?[index];
+                return NewsCard(news: news);
               },
             );
           } else {
-            return const Text('NULL');
+            Text('ERROR404');
           }
+          return Text('ERROR101');
         },
       ),
-      */
     );
   }
 }
