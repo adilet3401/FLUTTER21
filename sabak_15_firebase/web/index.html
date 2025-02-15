@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="sabak_15_firebase">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>sabak_15_firebase</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Firebase Web SDK -->
+  <script type="module">
+    // Firebase'ти модулдук стилде импорттоо
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // Firebase конфигурациясы
+    const firebaseConfig = {
+      apiKey: "AIzaSyBjdO_oCgV9G551uzhl0XRkpNeRX41bMEo",
+      authDomain: "projecttwo-e6d26.firebaseapp.com",
+      projectId: "projecttwo-e6d26",
+      storageBucket: "projecttwo-e6d26.appspot.com",  // Туураланды!
+      messagingSenderId: "483331774905",
+      appId: "1:483331774905:web:7ccf5328f7b43824023e68",
+    };
+
+    // Firebase'ти инициализациялоо
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    console.log("Firebase ийгиликтүү жүктөлдү!");
+  </script>
+
+</head>
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
