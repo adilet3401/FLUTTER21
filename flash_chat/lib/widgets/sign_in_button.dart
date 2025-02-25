@@ -4,26 +4,30 @@ import 'package:flutter/material.dart';
 class SignInButton extends StatelessWidget {
   const SignInButton({
     super.key,
+    this.onPressed,
+    required this.text,
   });
+
+  final void Function()? onPressed;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // Добавляем SizedBox для строгого контроля размера
-      width: 382, // Явно задаем ширину
+      width: 382,
       height: 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          fixedSize: const Size(340, 56), // Меняем minimumSize на fixedSize
+          fixedSize: const Size(340, 56),
           backgroundColor: const Color(0xff2563EB),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        onPressed: () {},
-        child: const Center(
+        onPressed: onPressed,
+        child: Center(
           child: Text(
-            'Sign In',
+            text,
             style: TextStyles.bodyMedium,
           ),
         ),

@@ -12,7 +12,7 @@ class TextStyles {
     color: Colors.black,
   );
   static const TextStyle bodyMedium = TextStyle(
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: FontWeight.w500,
     color: Colors.white,
   );
@@ -23,5 +23,9 @@ class TextStyles {
   static const TextStyle bodySmall2 = TextStyle(
     fontSize: 14,
     color: Color(0xff2563eb),
+  );
+  static const TextStyle label = TextStyle(
+    fontSize: 12,
+    color: Color(0xff6b7280),
   );
 }

@@ -15,11 +15,12 @@ class WithPlatformSignInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          side: const BorderSide(color: Colors.grey)),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        side: const BorderSide(color: Colors.grey),
+      ),
       onPressed: () {},
       child: Row(
         mainAxisSize: MainAxisSize.min,
