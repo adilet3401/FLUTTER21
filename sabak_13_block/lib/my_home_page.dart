@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sabak_13_block/bloc/news_bloc.dart';
-import 'package:sabak_13_block/service.dart';
 import 'package:sabak_13_block/widgets/news_card.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -36,9 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 return NewsCard(news: news);
               },
             );
-          } else {
-            Text('ERROR404');
-          }
+          } 
           return Text('ERROR101');
         },
       ),

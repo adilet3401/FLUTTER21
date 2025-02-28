@@ -33,7 +33,7 @@ class _SignInPageState extends State<SignInPage> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('error404: ${e.toString()}'),
+          content: Text('Ошибка: ${e.toString()}'),
         ),
       );
       print('error404: ${e.toString()}');

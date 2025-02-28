@@ -33,10 +33,10 @@ class _SignUpPageState extends State<SignUpPage> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            content: Column(
-          children: [
-            Text('этот аккаунт существует'),
-            ElevatedButton(
+          content: Column(
+            children: [
+              const Text('This account already exists'),
+              ElevatedButton(
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
@@ -45,11 +45,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   );
                 },
-                child: Text('логин барагына отуу'))
-          ],
-        )),
+                child: const Text('Go to login page'),
+              ),
+            ],
+          ),
+        ),
       );
-
       print('error404: ${e.toString()}');
     }
   }
