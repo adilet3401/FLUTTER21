@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sabr_2/widgets/bagymdat_page.dart';
 
 class UbakytTar extends StatelessWidget {
   const UbakytTar({
@@ -8,7 +7,8 @@ class UbakytTar extends StatelessWidget {
     this.image,
     this.icon,
     this.iconColor = Colors.black, // Цвет по умолчанию
-    this.iconSize = 24.0, // Размер по умолчанию
+    this.iconSize = 24.0,
+    this.onTap, // Размер по умолчанию
   });
 
   final String text;
@@ -16,6 +16,7 @@ class UbakytTar extends StatelessWidget {
   final Image? image;
   final Color iconColor;
   final double iconSize; // Новый параметр для размера иконки
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +33,7 @@ class UbakytTar extends StatelessWidget {
           fontSize: 18,
         ),
       ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const BagymDat(),
-          ),
-        );
-      },
+      onTap: onTap,
     );
   }
 }

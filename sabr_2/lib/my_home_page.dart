@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:sabr_2/widgets/bagymdat_page.dart';
 import 'package:sabr_2/widgets/namaz_ubaktysy.dart';
-// import 'package:sabr_2/widgets/beshim_page.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
@@ -13,7 +11,7 @@ class MyHomePage extends StatelessWidget {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: [
+          children: const [
             DrawerHeader(
               decoration: BoxDecoration(color: Color(0xffAB886D)),
               child: Text(
