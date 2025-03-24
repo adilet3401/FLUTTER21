@@ -45,5 +45,14 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<!-- Разрешение на открытие ссылок в других приложениях -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>       <!-- Телефон -->
+		<string>sms</string>       <!-- SMS -->
+		<string>mailto</string>    <!-- Почта -->
+		<string>whatsapp</string>  <!-- WhatsApp -->
+	</array>
 </dict>
 </plist>
