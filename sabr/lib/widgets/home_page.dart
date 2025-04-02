@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          'Ассалому алейкум!\nКуттуу ордоңузга кош келиңиз!\nБүгүн да жакшы күн болсун, ар бир мүнөтүңүз берекелүү өтсүн!',
+          'Ассалому алейкум!',
           style: TextStyles.blackTitle,
           textAlign: TextAlign.center,
         ),

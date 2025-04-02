@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sabr/widgets/home_page.dart';
+import 'package:sabr/widgets/logo_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(),
       debugShowCheckedModeBanner: false,
       title: 'Sabr',
-      home: HomePage(),
+      home: SplashScreen(),
     );
   }
 }
